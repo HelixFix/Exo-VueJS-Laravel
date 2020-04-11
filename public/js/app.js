@@ -1191,8 +1191,8 @@ window.Vue = __webpack_require__(35);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('navbar', __webpack_require__(56));
-Vue.component('articles', __webpack_require__(54));
+Vue.component('navbar', __webpack_require__(56)); // Enregistre Navbar.vue
+Vue.component('articles', __webpack_require__(54)); // Enregistre Articles.vue
 
 var app = new Vue({
   el: '#app'
