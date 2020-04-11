@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Articles</h2>
-        <div class="card card-body" v-for="article in articles" v-bind:key="article.id">
+        <div class="card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
         <h3>{{ article.title }}</h3>
         <p>{{ article.body }}</p>
         </div>
@@ -30,15 +30,40 @@ export default {
 
     // Tips : un objet à l'intérieur d'un tableau s'appel une data
 
+    // methods: {
+    //     fetchArticles() {
+    //         fetch('api/articles')
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             // console.log(res.data);
+    //             this.articles = res.data;
+
+    //         });
+    //     }
+    // }
     methods: {
-        fetchArticles() {
-            fetch('api/articles')
+        fetchArticles(page_url) {
+            let vm = this;
+            page_url = page_url || '/api/articles'
+            fetch(page_url)
             .then(res => res.json())
             .then(res => {
                 // console.log(res.data);
                 this.articles = res.data;
+                vm.makePagination(res.meta, res.links);
+            })
+            .catch(err => console.log('err')
+            );
+        },
+        makePagination(meta, links) {
+            let pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page_url: links.next,
+                prev_page_url: links.prev
+            };
 
-            });
+            this.pagination = pagination;
         }
     }
 }

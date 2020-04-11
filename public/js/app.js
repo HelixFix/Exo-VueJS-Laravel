@@ -45189,16 +45189,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     // Tips : un objet à l'intérieur d'un tableau s'appel une data
 
+    // methods: {
+    //     fetchArticles() {
+    //         fetch('api/articles')
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             // console.log(res.data);
+    //             this.articles = res.data;
+
+    //         });
+    //     }
+    // }
     methods: {
-        fetchArticles: function fetchArticles() {
+        fetchArticles: function fetchArticles(page_url) {
             var _this = this;
 
-            fetch('api/articles').then(function (res) {
+            var vm = this;
+            page_url = page_url || '/api/articles';
+            fetch(page_url).then(function (res) {
                 return res.json();
             }).then(function (res) {
                 // console.log(res.data);
                 _this.articles = res.data;
+                vm.makePagination(res.meta, res.links);
+            }).catch(function (err) {
+                return console.log('err');
             });
+        },
+        makePagination: function makePagination(meta, links) {
+            var pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page_url: links.next,
+                prev_page_url: links.prev
+            };
+
+            this.pagination = pagination;
         }
     }
 });
@@ -45217,11 +45243,15 @@ var render = function() {
       _c("h2", [_vm._v("Articles")]),
       _vm._v(" "),
       _vm._l(_vm.articles, function(article) {
-        return _c("div", { key: article.id, staticClass: "card card-body" }, [
-          _c("h3", [_vm._v(_vm._s(article.title))]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(article.body))])
-        ])
+        return _c(
+          "div",
+          { key: article.id, staticClass: "card card-body mb-2" },
+          [
+            _c("h3", [_vm._v(_vm._s(article.title))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(article.body))])
+          ]
+        )
       })
     ],
     2
