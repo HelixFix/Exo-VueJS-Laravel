@@ -24,6 +24,7 @@
     <body>
 
         <div class="" id="app">
+            <navbar></navbar>
 
             <div class="container">
 
