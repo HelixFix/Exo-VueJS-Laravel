@@ -41,7 +41,7 @@ export default {
             article:{
                 id: '',
                 title: '',
-                bodt: ''
+                body: ''
             }, 
             article_id: '',
             pagination: {},
