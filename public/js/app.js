@@ -45167,6 +45167,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -45205,7 +45216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var vm = this;
-            page_url = page_url || '/api/articles';
+            page_url = page_url || 'api/articles';
             fetch(page_url).then(function (res) {
                 return res.json();
             }).then(function (res) {
@@ -45213,7 +45224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.articles = res.data;
                 vm.makePagination(res.meta, res.links);
             }).catch(function (err) {
-                return console.log('err');
+                return console.log(err);
             });
         },
         makePagination: function makePagination(meta, links) {
@@ -45241,6 +45252,56 @@ var render = function() {
     "div",
     [
       _c("h2", [_vm._v("Articles")]),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c("ul", { staticClass: "pagination" }, [
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.prev_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fetchArticles(_vm.pagination.prev_page_url)
+                    }
+                  }
+                },
+                [_vm._v("Previous")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.next_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fetchArticles(_vm.pagination.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v("Next")]
+              )
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _vm._l(_vm.articles, function(article) {
         return _c(
